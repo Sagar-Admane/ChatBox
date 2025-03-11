@@ -1,0 +1,115 @@
+.container{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    align-items: center;
+    border-radius: 18px;
+
+    .search1{
+        .searchButton{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+    }
+
+    .logo{
+        h2{
+            color: #e98868;
+        }
+    }
+
+    .profile{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        Button{
+            display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        }
+    }
+
+}
+
+.drawer{
+    
+    p{
+        font-weight: bold;
+        font-size: 22px;
+        padding: 16px 50px 16px 16px;
+        text-align: left;
+    }
+}
+
+.input{
+    form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        padding: 16px;
+
+        input{
+            padding: 6px 4px;
+            border-radius: 4px;
+            border : none;
+        }
+
+        input[type="text"]{
+            border: 1px solid black;
+        }
+
+        input[type="text"]:focus{
+            outline: none;
+        }
+
+        input[type = "submit"]{
+            padding: 6px 10px;
+        }
+
+    }
+}
+
+.res{
+    padding: 4px 17px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.result{
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+    div{
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+}
+
+
+@media screen and (max-width : 850px) {
+    .container{
+        .logo{
+            display: none;
+        }
+    }
+
+
+    .profile{
+        Button{
+            span{
+                display: none;
+            }
+        }
+    }
+}

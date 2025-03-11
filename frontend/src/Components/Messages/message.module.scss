@@ -1,0 +1,40 @@
+.inp{
+    form{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+
+        input{
+            border: none;
+            border-radius: 20px;
+            padding: 12px;
+            width: 97%;
+        }
+
+        
+    }
+}
+
+.container1{
+    display: flex;
+    height: 72vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.msg{
+    display: flex;
+    flex-direction: column;
+    height: 64.5vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.msg::-webkit-scrollbar {
+    display: none;
+}
+
+.container{
+    margin-right: 0;
+}

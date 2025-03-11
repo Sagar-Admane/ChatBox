@@ -1,0 +1,41 @@
+.form{
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    
+    input{
+        width: 100%;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    button{
+        padding: 8px;
+        border-radius: 8px;
+        border: none;
+    }
+}
+
+.listItem{
+    background-color: #E8E8E8;
+    border-radius: 8px;
+    cursor: pointer;
+    p{
+        font-size: 16px;
+    }
+}
+
+.listItem:hover{
+    background-color: #FEDCC5;
+}
+
+.listItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}

@@ -1,0 +1,8 @@
+.container {
+    display: flex;
+    flex-direction: column-reverse;  /* Start at bottom */
+    // background-color: red;
+    height: 100%;
+    overflow-y: auto;  /* Enable scrolling */
+    justify-content: flex-end;  /* Ensure content moves to the bottom */
+}
