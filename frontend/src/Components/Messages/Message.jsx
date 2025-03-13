@@ -10,7 +10,7 @@ import io from "socket.io-client"
 import Lottie, {} from "react-lottie"
 import anumation from "../../typing/type.json"
 
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://chatbox-u4qn.onrender.com";
 var socket, selectedChatCompare;
 
 function Message() {
