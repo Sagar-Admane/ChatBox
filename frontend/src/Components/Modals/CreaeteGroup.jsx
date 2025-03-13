@@ -56,7 +56,7 @@ function CreaeteGroup({ children }) {
         setLoading(true)
 
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/user?search=${search}`, {
+            const { data } = await axios.get(`https://chatbox-u4qn.onrender.com/api/user?search=${search}`, {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
                 }
