@@ -62,7 +62,7 @@ function Message() {
         
 
         try {
-            const {data} = await axios.get(`http://localhost:5000/api/message/${selectedChat._id}`,{
+            const {data} = await axios.get(`https://chatbox-u4qn.onrender.com/api/message/${selectedChat._id}`,{
                 headers : {
                     Authorization : `Bearer ${user.token}`
                 }
@@ -85,7 +85,7 @@ function Message() {
         setNewMessage("");
         socket.emit('stop typing', selectedChat._id);
         try {
-            const { data } = await axios.post("http://localhost:5000/api/message", {
+            const { data } = await axios.post("https://chatbox-u4qn.onrender.com/api/message", {
                 content: newMessage,
                 chatId: selectedChat._id
             }, {
