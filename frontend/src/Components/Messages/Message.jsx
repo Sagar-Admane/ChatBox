@@ -6,19 +6,55 @@ import chatContext from '../../Context/chatProvider';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import ScrollableChats from '../ScrollableChats/ScrollableChats';
+import io from "socket.io-client"
+import Lottie, {} from "react-lottie"
+import anumation from "../../typing/type.json"
+
+const ENDPOINT = "http://localhost:5000";
+var socket, selectedChatCompare;
 
 function Message() {
 
     const [message, setMessage] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [loading, setLoding] = useState(false);
+    const [socketConnected, setSocketConnected] = useState(false); 
+    const [typing, setTyping] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
 
     const {user, selectedChat, setSelectedchat} = useContext(chatContext)
 
+    const defaultOption = {
+        loop : true,
+        autoplay : true,
+        animationData : anumation,
+        renderingSettings : {
+            preserveAspectRatio : "xMidYMid slice",
+        }
+    }
+
     useEffect(()=>{
         fetchMessage();
-        console.log(message);
+        selectedChatCompare = selectedChat;
     }, [selectedChat])
+
+    useEffect(()=>{
+        socket = io(ENDPOINT);
+        socket.emit("setup",user);
+        socket.on("connected", ()=> setSocketConnected(true));
+        socket.on('typing',()=>setIsTyping(true));
+        socket.on('stop typing',()=>setIsTyping(false));
+    }, [])
+
+    useEffect(()=>{
+        socket.on("message recieved",(newMessageRecieved)=>{
+            if(!selectedChatCompare || selectedChatCompare._id!=newMessageRecieved.chat._id){
+                // givenotification
+            } else {
+                setMessage([...message,newMessageRecieved]);
+            }
+        })
+    })
 
     async function fetchMessage(){
         if(!selectedChat) return;
@@ -33,6 +69,7 @@ function Message() {
             })
             setMessage(data);
             console.log(data);
+            socket.emit('join chat', selectedChat._id);
         } catch (error) {
             toast.error("Failed to load the messages");
         }
@@ -46,6 +83,7 @@ function Message() {
         }
     
         setNewMessage("");
+        socket.emit('stop typing', selectedChat._id);
         try {
             const { data } = await axios.post("http://localhost:5000/api/message", {
                 content: newMessage,
@@ -58,6 +96,7 @@ function Message() {
             });
     
             setMessage([...message, data]);  
+            socket.emit("new message", data);
             fetchMessage();  
         } catch (error) {
             toast.error("Failed to send message");
@@ -66,6 +105,24 @@ function Message() {
 
     function typingHandler(e){
         setNewMessage(e.target.value);
+
+        if(!socketConnected) return;
+
+        if(!typing){
+            setTyping(true);
+            socket.emit('typing', selectedChat._id);
+        }
+
+        let lastTypingTime = new Date().getTime();
+        var timerLength = 3000;
+        setTimeout(()=>{
+            var timeNow = new Date().getTime();
+            var timeDiff = timeNow-lastTypingTime;
+            if(timeDiff>=timerLength && typing){
+                socket.emit('stop typing', selectedChat._id);
+                setTyping(false);
+            }
+        }, timerLength)
     }
 
     return (
@@ -77,9 +134,14 @@ function Message() {
                         {<ScrollableChats message={message} />}
                     </div>
                     <div className={style.inp} >
+                        {isTyping ? <div><Lottie 
+                        options={defaultOption}
+                        width={70}
+                        style={{ marginLeft: 5}}
+                        /></div> : <></>}
                         <form onSubmit={handleSubmit} >
                             <input type="text" placeholder='Enter Your text' onChange={typingHandler} value={newMessage} />
-                            <IoSendSharp size={24} />
+                            <IoSendSharp onClick={handleSubmit} size={24} />
                         </form>
                     </div>
                 </div>

@@ -54,10 +54,16 @@
         }
     }
 
-    .box::-webkit-scrollbar{
-        display: none;
-    }
+    
 }
+
+.box::-webkit-scrollbar{
+    display: none;
+}
+.box {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 
 input:focus{
     outline: none;
