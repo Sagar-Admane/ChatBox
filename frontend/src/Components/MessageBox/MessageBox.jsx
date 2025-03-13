@@ -61,7 +61,7 @@ function MessageBox() {
     }
 
     try {
-      const {data} = await axios.put("http://localhost:5000/api/chat/groupremove", {chatId : selectedChat._id, userId : id},{
+      const {data} = await axios.put("https://chatbox-u4qn.onrender.com/api/chat/groupremove", {chatId : selectedChat._id, userId : id},{
         headers : {
           Authorization : `Bearer ${user.token}`,
         }
@@ -95,7 +95,7 @@ function MessageBox() {
 
     try {
 
-      const { data } = await axios.put("http://localhost:5000/api/chat/groupadd", { chatId: selectedChat._id, userId: selectedUser[0]._id }, {
+      const { data } = await axios.put("https://chatbox-u4qn.onrender.com/chat/groupadd", { chatId: selectedChat._id, userId: selectedUser[0]._id }, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         }
@@ -120,7 +120,7 @@ function MessageBox() {
       toast.error("Name cannot be same as previous name");
     }
     try {
-      const { data } = await axios.put("http://localhost:5000/api/chat/rename", { name: rename, chatId: selectedChat._id }, {
+      const { data } = await axios.put("https://chatbox-u4qn.onrender.com/api/chat/rename", { name: rename, chatId: selectedChat._id }, {
         headers: {
           Authorization: `Bearer ${user.token}`
         }
@@ -144,7 +144,7 @@ function MessageBox() {
     setLoading(true)
 
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/user?search=${search}`, {
+      const { data } = await axios.get(`https://chatbox-u4qn.onrender.com/api/user?search=${search}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         }
